@@ -1,1 +1,1 @@
-PyCrm
+CRM app on Django project.

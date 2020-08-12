@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание задачи</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
+    <script src="{% static "js/bootstrap.js" %}" ></script>
+    <script src="{% static "js/createTask.js" %}" ></script>
+    <script src="{% static "js/caseList.js" %}" ></script>
+
+
+</head>
+<body>
+<div class="container" about="container">
+    <div class="modal-header">
+        <h1 class="display-2">Создание задачи</h1>
+    </div>
+<div class="" about="navbar">
+     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(201,201,201,0.2);">
+  <h2 class="navbar-brand">Панель управления</h2>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/crm/">Главная<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="">Завести дело<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="">Список дел<span class="sr-only">(current)</span></a>
+      </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/admin/">Панель администратора<span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+  </div>
+</nav>
+<br>
+</div>
+    <h3 class="display-5"></h3>
+    <div class="container">
+        <div class="card">
+            <div class="card-title">
+               <br> <h4 class="d-flex justify-content-center">Дело № {{ case.case_id }} ({{ case.fio }})</h4>
+            </div>
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Название задачи</span>
+                    </div>
+                    <input id="nameBox" type="text" class="form-control" placeholder="" aria-label="Имя пользователя" aria-describedby="basic-addon1" value="{{ cs.fio }}">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Описание</span>
+                    </div>
+                    <textarea id="descBox" class="form-control" aria-label="Описание">{{ cs.description }}</textarea>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Выбор даты</span>
+                    </div>
+                    <input type="date" id="dateBox" style="font-size: 20px">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Приоритет</span>
+                    </div>
+                    <select id="cmb">
+                        <option>Низкий</option>
+                        <option>Средний</option>
+                        <option>Высокий</option>
+                    </select>
+                </div>
+                <input class="btn-primary float-lg-left border-dark" style="width: 150px" type="button" onclick="createTask({{ case.case_id }})" value="Сохранить">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

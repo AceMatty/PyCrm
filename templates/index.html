@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
+    <script src="{% static "js/caseList.js" %}" ></script>
+    <script src="{% static "js/deleteTask.js" %}" ></script>
+</head>
+
+<body>
+
+<div class="container" about="container">
+    <div class="modal-header">
+            <h1 class="display-2">Главная</h1>
+    </div>
+<div class="" about="navbar">
+     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(201,201,201,0.2);">
+  <h2 class="navbar-brand">Панель управления</h2>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/crm/">Главная<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="">Завести дело<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="">Список дел<span class="sr-only">(current)</span></a>
+      </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/admin/">Панель администратора<span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+  </div>
+</nav>
+<br>
+</div>
+<div class="" about="caseList">
+    <h4 class="display-4">Список дел</h4><br>
+     {% for cs in cases %}
+        <div class="card border-dark mb-3"  >
+            <div class="card-header">
+                <h4>Дело №{{ cs.case_id }}</h4><br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">ФИО</span>
+                    </div>
+                    <input id="nameBox{{ cs.case_id }}" type="text" class="form-control" placeholder="" aria-label="Имя пользователя" aria-describedby="basic-addon1" value="{{ cs.fio }}">
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Описание</span>
+                    </div>
+                    <textarea id="descBox{{ cs.case_id }}" class="form-control" aria-label="Описание">{{ cs.description }}</textarea>
+                </div><br><div class="border-bottom border-dark" ></div><br>
+                <h5>Задачи</h5><br>
+                {% for task in tasks %}
+                {% if task.case == cs %}
+                <div class="card border-dark" about="task" style="width: 30rem;">
+                    <div class="card-header">
+                        <h5 class="card-title" >Задача: {{ task.task_name }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Описание задачи: {{ task.task_desc }}</p>
+                        <h6 style="font-style: normal" >Приоритет: {{ task.priority }}</h6>
+                        <h6 style="font-style: normal" >Статус: {{ task.status }}</h6>
+                        <h6 style="font-style: normal" >Дата создания: {{ task.create_date}}</h6>
+                        <h6 style="font-style: normal" >Дата выполнения: {{ task.work_date}}</h6>
+                    </div>
+                    <div class="card-footer">
+                        <input class="btn-danger float-lg-left border-dark" style="width: 150px" type="button" onclick="deleteTask({{ task.task_id }})" value="Удалить">
+                    </div>
+                </div><br>
+                {% endif %}
+                {% endfor %}
+            <a class="btn-primary float-lg-left border-dark" href="/crm/createTask?id_case={{ cs.case_id }}">Создать задачу</a>
+            </div>
+            <div class="card-footer" >Дата создания {{ cs.create_date }}
+                <input class="btn-primary float-lg-right border-dark" style="width: 150px" type="button" onclick="EditCase({{ cs.case_id }})" value="Сохранить">
+            </div>
+        </div><br>
+    {% endfor %}
+</div>
+
+
+</div>
+
+
+</body>
+</html>
